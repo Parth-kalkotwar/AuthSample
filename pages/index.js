@@ -11,10 +11,10 @@ export default function Index({ res }) {
   );
 }
 
-export async function getStaticProps(context) {
+Index.initialProps = async (context) => {
   const resp = await fetch("https://auth-sample.vercel.app/api/login");
   const res = await resp.json();
   return {
     props: { res },
   };
-}
+};
