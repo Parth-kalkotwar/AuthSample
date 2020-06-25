@@ -5,23 +5,20 @@ export default function Person({ prop }) {
   let created_at = event.toTimeString();
   created_at = created_at.split(" ");
 
-  const logout = () => {
-    const cookies = document.cookie.split(";");
-    console.log(cookies);
-  };
   return (
     <h1>
       Welcome {prop[0].name}
       <br />
       Started At : {created_at[0]}
-      <button onClick={logout}>Logout</button>
     </h1>
   );
 }
 
 Person.getInitialProps = async (ctx) => {
   //console.log(ctx.query);
-  const result = await fetch("http://localhost:3000/api/" + ctx.query.id);
+  const result = await fetch(
+    "https://auth-sample.vercel.app/api/" + ctx.query.id
+  );
   const data = await result.json();
   return { prop: data };
 };

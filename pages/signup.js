@@ -23,7 +23,7 @@ class register extends Component {
       email: this.state.username[0],
       password: this.state.password[0],
     };
-    const resp = await fetch("http://localhost:3000/api/signup", {
+    const resp = await fetch("https://auth-sample.vercel.app/api/signup", {
       method: "POST",
       body: JSON.stringify(data),
     });

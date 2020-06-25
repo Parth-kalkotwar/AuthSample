@@ -25,11 +25,11 @@ export default class Google extends Component {
         sm: "google",
       };
       //console.log(data);
-      const resp = fetch("http://localhost:3000/api/assignToken", {
+      const resp = fetch("https://auth-sample.vercel.app/api/assignToken", {
         method: "POST",
         body: JSON.stringify(data),
       });
-      const create = await fetch("http://localhost:3000/api/signup", {
+      const create = await fetch("https://auth-sample.vercel.app/api/signup", {
         method: "POST",
         body: JSON.stringify(data),
       });
