@@ -52,7 +52,7 @@ export default async function login(
                   path: "/",
                 })
               );
-              res.json({ jwt: token });
+              res.json({ jwt: token, id: user.id });
             } else {
               res.json({ message: "Password is incorrect" });
             }
