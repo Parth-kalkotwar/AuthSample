@@ -36,7 +36,7 @@ export default async function login(
 
           compare(req.body.password, user.password, (err, isMatch) => {
             if (err) {
-              console.log(err);
+              res.json(err);
             }
             if (isMatch) {
               var token = sign({ sub: user.email, name: user.name }, secret, {

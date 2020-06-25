@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "node ./database/dbConfig.js && next dev",
-    "build": "node ./database/dbCOnfig.js && next build",
+    "build": "node ./database/dbConfig.js && next build",
     "start": "next start"
   },
   "dependencies": {
