@@ -51,6 +51,7 @@ homepage.getInitialProps = async (ctx) => {
   let authenticated = false;
   //console.log(ctx.req);
   if (
+    ctx.req === undefined ||
     ctx.req.headers.cookie === undefined ||
     (!cookie.parse(ctx.req.headers.cookie).auth &&
       !cookie.parse(ctx.req.headers.cookie).fb &&

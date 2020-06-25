@@ -45,7 +45,7 @@ export default async function login(
               res.setHeader(
                 "Set-Cookie",
                 cookie.serialize("auth", token, {
-                  httpOnly: true,
+                  httpOnly: false,
                   secure: process.env.NODE_ENV !== "development",
                   sameSite: "strict",
                   maxAge: 3600,
