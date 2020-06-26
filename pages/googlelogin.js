@@ -5,6 +5,7 @@ import cookie from "cookie";
 import { secret } from "../auth/secret";
 import Router from "next/router";
 import Link from "next/link";
+import { Typography } from "@material-ui/core";
 
 export default class Google extends Component {
   constructor(props) {
@@ -25,11 +26,11 @@ export default class Google extends Component {
         sm: "google",
       };
       //console.log(data);
-      const resp = fetch("https://auth-sample.vercel.app/api/assignToken", {
+      const resp = fetch("http://localhost:3000/api/assignToken", {
         method: "POST",
         body: JSON.stringify(data),
       });
-      const create = await fetch("https://auth-sample.vercel.app/api/signup", {
+      const create = await fetch("http://localhost:3000/api/signup", {
         method: "POST",
         body: JSON.stringify(data),
       });
@@ -64,11 +65,7 @@ export default class Google extends Component {
               color: "#000",
             }}
           >
-            <img src={this.state.picture} alt={this.state.name} />
-            <h2>Welcome {this.state.name}!</h2>
-            <Link href="/">
-              <a>HomePage</a>
-            </Link>
+            <Typography variant="h1">Redirecting</Typography>
           </div>
         ))
       : (googleData = (

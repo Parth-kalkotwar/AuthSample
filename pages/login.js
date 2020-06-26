@@ -16,7 +16,7 @@ export default class login extends Component {
       password: this.state.password[0],
       type: "email",
     };
-    const resp = await fetch("https://auth-sample.vercel.app/api/login", {
+    const resp = await fetch("http://localhost:3000/api/login", {
       method: "POST",
       body: JSON.stringify(data),
     });

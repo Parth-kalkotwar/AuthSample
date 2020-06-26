@@ -8,14 +8,17 @@ import {
 import { secret } from "../auth/secret";
 import Link from "next/link";
 import cookie from "cookie";
+import Post from "../components/post";
 
-export default function homepage({ authenticated }) {
+export default function homepage({ authenticated, posts }) {
   return (
     <>
       {authenticated ? (
         <h1>
           homepage
           <br />
+          {}
+          <Post posts={posts} />
         </h1>
       ) : (
         <>
@@ -80,6 +83,14 @@ homepage.getInitialProps = async (ctx) => {
       }
     });
   }
+  let posts = [];
+  if (authenticated) {
+    const resp = await fetch("http://localhost:5000/api/posts", {
+      method: "GET",
+    });
 
-  return { authenticated: authenticated };
+    posts = await resp.json();
+    //console.log(posts);
+  }
+  return { authenticated: authenticated, posts: posts };
 };

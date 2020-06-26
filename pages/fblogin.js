@@ -30,11 +30,11 @@ export default class Facebook extends Component {
         email: response.id,
         sm: "fb",
       };
-      const resp = fetch("https://auth-sample.vercel.app/api/assignToken", {
+      const resp = fetch("http://localhost:3000/api/assignToken", {
         method: "POST",
         body: JSON.stringify(data),
       });
-      const create = await fetch("https://auth-sample.vercel.app/api/signup", {
+      const create = await fetch("http://localhost:3000/api/signup", {
         method: "POST",
         body: JSON.stringify(data),
       });
@@ -70,7 +70,7 @@ export default class Facebook extends Component {
               color: "#000",
             }}
           >
-            <h2>Welcome!</h2>
+            <h2>Redirecting...</h2>
           </div>
         ))
       : (facebookData = (
