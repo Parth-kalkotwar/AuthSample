@@ -44,6 +44,25 @@ app.get("/api/posts", async (req, res) => {
   }
 });
 
+app.get("/api/posts/:post_id/likes", async (req, res) => {
+  try {
+    const posts = await pool.query(`SELECT * FROM posts`);
+    console.log(posts.rows[0].likes);
+    let likes = [];
+    for (let i = 0; i < posts.rows[0].likes.length; i++) {
+      console.log(posts.rows[0].likes[i]);
+      let user = await pool.query(`SELECT * FROM users WHERE id = $1`, [
+        parseInt(posts.rows[0].likes[i]),
+      ]);
+      console.log(user);
+      likes.push(user.rows[0].name);
+    }
+    res.json(likes);
+  } catch (error) {
+    console.error(error.message);
+  }
+});
+
 app.get("/api/:user_id/posts", async (req, res) => {
   try {
     const { user_id } = req.params;
@@ -107,6 +126,83 @@ app.delete("/api/posts/:id", async (req, res) => {
     res.json({ success: true });
   } catch (err) {
     console.error(err.message);
+  }
+});
+
+// Comments
+
+app.get("/api/:post_id/comment", async (req, res) => {
+  try {
+    //console.log(req.body);
+    const { post_id } = req.params;
+    //console.log(title, details);
+    const comments = await pool.query(
+      `SELECT
+      users.id,
+      users.name,
+      comments.comment_id,
+      comments.comment_details,
+      comments.post_id
+    FROM
+      comments
+    LEFT JOIN users ON comments.user_id = users.id where comments.post_id = $1;`,
+      [post_id]
+    );
+    res.json(comments.rows);
+  } catch (error) {
+    console.error(error.message);
+  }
+});
+
+app.post("/api/:post_id/comment", async (req, res) => {
+  try {
+    //console.log(req.body);
+    const { post_id } = req.params;
+    const { details, user_id } = req.body;
+    //console.log(title, details);
+    const post = await pool.query(
+      `INSERT INTO comments (post_id, user_id,comment_details) VALUES ($1, $2,$3) RETURNING *`,
+      [post_id, user_id, details]
+    );
+
+    res.json(post.rows[0]);
+  } catch (error) {
+    console.error(error.message);
+  }
+});
+
+app.delete("/api/:post_id/comment/:comment_id", async (req, res) => {
+  try {
+    //console.log(req.body);
+    const { comment_id } = req.params;
+    //console.log(title, details);
+    const deletecomment = await pool.query(
+      `DELETE FROM comments WHERE comment_id = $1`,
+      [comment_id]
+    );
+
+    res.json({ success: true });
+  } catch (error) {
+    console.error(error.message);
+  }
+});
+
+// LIKES
+
+app.put("/api/:post_id/like/:user_id", async (req, res) => {
+  try {
+    //console.log(req.body);
+    const { post_id, user_id } = req.params;
+    //console.log(title, details);
+    const post = await pool.query(
+      `update posts
+      set likes = likes || $1::BIGINT
+      where post_id = $2;`,
+      [user_id, post_id]
+    );
+    res.json(post);
+  } catch (error) {
+    console.error(error.message);
   }
 });
 

@@ -2,7 +2,7 @@ import Link from "next/link";
 import Router from "next/router";
 import Post from "../../components/post";
 import CreateForm from "../../components/createForm";
-import { Typography } from "@material-ui/core";
+import { Typography, Button } from "@material-ui/core";
 import Profile from "../../components/Profile";
 
 export default function Person({ user, posts, id }) {
@@ -17,6 +17,9 @@ export default function Person({ user, posts, id }) {
   };
   return (
     <>
+      <Link href={"/" + id + "/homepage"}>
+        <Button color="primary">HomePage</Button>
+      </Link>
       <Profile user={user} />
       <CreateForm id={id} />
       <Typography variant="h3">Your Posts:</Typography>
