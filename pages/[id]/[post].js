@@ -31,7 +31,7 @@ const useStyles = makeStyles({
 export default function PostDetails({ posts, id, comments, likes }) {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
-  console.log(likes);
+  //console.log(likes);
   const onDelete = async (e) => {
     //console.log(posts);
     e.preventDefault();
@@ -46,6 +46,7 @@ export default function PostDetails({ posts, id, comments, likes }) {
     const url = "/" + id;
     Router.push(url);
   };
+  console.log(likes);
   return (
     <Card className={classes.root} variant="outlined">
       <CardContent>
@@ -94,8 +95,13 @@ PostDetails.getInitialProps = async (ctx) => {
   );
   const comments = await response.json();
   const likes_resp = await fetch(
-    "http://localhost:5000/api/posts/" + ctx.query.post + "/likes"
+    "http://localhost:5000/api/" + ctx.query.post + "/likes"
   );
   const likes = await likes_resp.json();
-  return { posts: posts, id: ctx.query.id, comments: comments, likes: likes };
+  return {
+    posts: posts,
+    id: ctx.query.id,
+    comments: comments,
+    likes: likes,
+  };
 };

@@ -23,17 +23,21 @@ export default class login extends Component {
 
     const user = await resp.json();
     console.log(user);
-    if (user.message !== undefined) {
+    if (
+      user.message !== undefined ||
+      user.message === "No user with that email address" ||
+      user.message === "Password is incorrect"
+    ) {
       this.setState({ message: user.message });
-    }
-    if (user.jwt !== undefined) {
+    } else if (user.jwt !== undefined) {
       this.setState({ loggedIn: true });
+      const { pathname } = Router;
+      if (pathname == "/login") {
+        const url = "/" + user.id;
+        Router.push(url);
+      }
     }
-    const { pathname } = Router;
-    if (pathname == "/login") {
-      const url = "/" + user.id;
-      Router.push(url);
-    }
+    return;
   };
 
   onChange = (e) => {

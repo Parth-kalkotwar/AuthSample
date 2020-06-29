@@ -206,6 +206,32 @@ app.put("/api/:post_id/like/:user_id", async (req, res) => {
   }
 });
 
+app.get("/api/:post_id/likes", async (req, res) => {
+  try {
+    const { post_id } = req.params;
+    const likes = await pool.query(
+      `select * from likes JOIN users ON users.id=likes.user_id where post_id = $1;`,
+      [post_id]
+    );
+    res.json(likes.rows);
+  } catch (error) {
+    console.error(error.message);
+  }
+});
+
+app.post("/api/:post_id/:user_id/likes", async (req, res) => {
+  try {
+    const { post_id, user_id } = req.params;
+    const likes = await pool.query(
+      `INSERT INTO likes (user_id, post_id) VALUES($1,$2) RETURNING *`,
+      [user_id, post_id]
+    );
+    res.json(likes.rows);
+  } catch (error) {
+    console.error(error.message);
+  }
+});
+
 app.listen(5000, () => {
   console.log("server has started on port 5000");
 });

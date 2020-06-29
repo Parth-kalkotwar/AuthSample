@@ -1,5 +1,5 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { Component } from "react";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import { List, CardActionArea } from "@material-ui/core";
 import { ListItem } from "@material-ui/core";
 import { Divider } from "@material-ui/core";
@@ -22,81 +22,97 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Link from "next/link";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "100%",
-    maxWidth: "36ch",
-    backgroundColor: theme.palette.background.paper,
-  },
-  inline: {
-    display: "inline",
-  },
-  avatar: {
-    backgroundColor: "red",
-  },
-}));
+class post extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { likes: 0, liked: false };
+  }
 
-export default function Post(props) {
-  const classes = useStyles();
-  const addLike = async (post_id) => {
-    // "/api/:post_id/like/:user_id"
+  async componentDidMount() {
     const resp = await fetch(
-      "http://localhost:5000/api/" + post_id + "/like/" + props.id,
+      "http://localhost:5000/api/" + this.props.post.post_id + "/likes",
       {
-        method: "PUT",
+        method: "GET",
       }
     );
-    //console.log(resp.json());
-    const { pathname } = Router;
-    const url = "/" + props.id + "/homepage";
-    Router.push(url);
+    const likes = await resp.json();
+    //console.log(likes);
+    for (let i = 0; i < likes.length; i++) {
+      if (likes[i].id === this.props.id) {
+        this.setState({ liked: true });
+      }
+    }
+    this.setState({ likes: likes.length });
+    //console.log(this.state.likes);
+  }
+  async componentDidUpdate() {
+    const resp = await fetch(
+      "http://localhost:5000/api/" + this.props.post.post_id + "/likes",
+      {
+        method: "GET",
+      }
+    );
+    const likes = await resp.json();
+    //console.log(likes);
+    this.setState({ likes: likes.length });
+  }
+  onClick = () => {
+    if (this.state.liked) {
+      return;
+    } else {
+      const resp = fetch(
+        "http://localhost:5000/api/" +
+          this.props.post.post_id +
+          "/" +
+          this.props.id +
+          "/likes",
+        {
+          method: "POST",
+        }
+      );
+      this.setState({ likes: this.state.likes + 1, liked: true });
+    }
   };
-  return (
-    <List className={classes.root}>
-      {props.posts.map((item) => {
-        //console.log(item.post_id);
-        return (
-          <>
-            <Card className={classes.root}>
-              <CardHeader
-                avatar={
-                  <Avatar aria-label="recipe" className={classes.avatar}>
-                    R
-                  </Avatar>
-                }
-                action={
-                  <IconButton aria-label="settings">
-                    <Link href={"/" + props.id + "/" + item.post_id}>
-                      <MoreVertIcon />
-                    </Link>
-                  </IconButton>
-                }
-                title={item.title}
-                subheader={item.updated_at}
-              />
-              <CardContent>
-                <Typography variant="body2" color="textSecondary" component="p">
-                  {item.details}
-                </Typography>
-              </CardContent>
-              <CardActions disableSpacing>
-                <IconButton
-                  aria-label="add to favorites"
-                  onClick={() => addLike(item.post_id)}
+
+  render() {
+    //const { classes } = this.props;
+    return (
+      <>
+        <Card>
+          <CardHeader
+            avatar={<Avatar aria-label="recipe">R</Avatar>}
+            action={
+              <IconButton aria-label="settings">
+                <Link
+                  href={"/" + this.props.id + "/" + this.props.post.post_id}
                 >
-                  <FavoriteIcon />
-                  <Typography>{item.likes ? item.likes.length : 0}</Typography>
-                </IconButton>
-                <IconButton aria-label="share">
-                  <ShareIcon />
-                </IconButton>
-              </CardActions>
-            </Card>
-            <Divider />
-            <br />
-          </>
-        );
-      })}
-    </List>
-  );
+                  <MoreVertIcon />
+                </Link>
+              </IconButton>
+            }
+            title={this.props.post.title}
+            subheader={this.props.post.updated_at}
+          />
+          <CardContent>
+            <Typography variant="body2" color="textSecondary" component="p">
+              {this.props.post.details}
+            </Typography>
+          </CardContent>
+          <CardActions disableSpacing>
+            <IconButton aria-label="add to favorites" onClick={this.onClick}>
+              <FavoriteIcon />
+              <Typography>{this.state.likes}</Typography>
+            </IconButton>
+            <IconButton aria-label="share">
+              <ShareIcon />
+            </IconButton>
+          </CardActions>
+        </Card>
+        <Divider />
+        <br />
+      </>
+    );
+  }
 }
+
+export default post;

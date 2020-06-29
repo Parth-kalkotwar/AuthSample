@@ -6,7 +6,7 @@ class UpdateForm extends Component {
   constructor(props) {
     super(props);
     this.state = { title: "", details: "" };
-    console.log("Update", props);
+    //console.log("Update", props);
   }
   onChange = (e) => {
     this.setState({

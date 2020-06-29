@@ -17,8 +17,6 @@ export default function homepage({ authenticated, posts }) {
         <h1>
           homepage
           <br />
-          {}
-          <Post posts={posts} />
         </h1>
       ) : (
         <>

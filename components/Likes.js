@@ -36,7 +36,7 @@ export default function Likes(props) {
               {props.likes.map((user) => {
                 return (
                   <ListItem>
-                    <ListItemText primary={user} />
+                    <ListItemText primary={user.name} />
                   </ListItem>
                 );
               })}

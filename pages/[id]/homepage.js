@@ -5,17 +5,24 @@ import {
   NextApiResponse,
   NextPageContext,
 } from "next";
+
+import { List, CardActionArea } from "@material-ui/core";
 import { secret } from "../../auth/secret";
 import Link from "next/link";
 import cookie from "cookie";
 import Post from "../../components/post";
+import { makeStyles } from "@material-ui/styles";
 
 export default function homepage({ posts, id }) {
   return (
     <>
       <h1>homepage</h1>
       <br />
-      <Post posts={posts} id={id} />
+      <List>
+        {posts.map((item) => {
+          return <Post post={item} id={id} />;
+        })}
+      </List>
     </>
   );
 }

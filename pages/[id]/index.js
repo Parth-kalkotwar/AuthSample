@@ -4,6 +4,7 @@ import Post from "../../components/post";
 import CreateForm from "../../components/createForm";
 import { Typography, Button } from "@material-ui/core";
 import Profile from "../../components/Profile";
+import { List, CardActionArea } from "@material-ui/core";
 
 export default function Person({ user, posts, id }) {
   const logout = async () => {
@@ -24,7 +25,11 @@ export default function Person({ user, posts, id }) {
       <CreateForm id={id} />
       <Typography variant="h3">Your Posts:</Typography>
       <br />
-      <Post posts={posts} id={id} />
+      <List>
+        {posts.map((item) => {
+          return <Post post={item} id={id} />;
+        })}
+      </List>
       <br />
       <button onClick={logout}>Logout</button>
     </>

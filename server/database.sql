@@ -48,7 +48,7 @@ SELECT
 	comments.comment_details
 FROM
 	comments
-LEFT JOIN users ON comments.user_id = users.id where comments.comment_id = 4;
+LEFT JOIN users ON comments.user_id = users.id where comments.post_id = 20;
 
 --POst Comments
 SELECT
@@ -77,5 +77,16 @@ where post_id = '21';
 --LIKES COUNT
 
 SELECT array_length((SELECT likes from posts where post_id=15), 1);
+
+
+--Likes Table 
+
+
+CREATE TABLE likes (
+  like_id BIGSERIAL NOT NULL PRIMARY KEY,	
+  post_id BIGINT REFERENCES posts(post_id) ON DELETE CASCADE,
+  user_id BIGINT REFERENCES users(id) ON DELETE CASCADE,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
 
 
