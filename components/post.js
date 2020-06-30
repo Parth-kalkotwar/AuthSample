@@ -76,7 +76,7 @@ class post extends Component {
 
   render() {
     //const { classes } = this.props;
-    return (
+    /*return (
       <>
         <Card>
           <CardHeader
@@ -111,6 +111,40 @@ class post extends Component {
         <Divider />
         <br />
       </>
+    );*/
+    return (
+      <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white transition duration-500 ease-out focused ">
+        <div className="flex justify-between items-center py-2 px-1">
+          <div className="text-gray-500">{this.props.post.updated_at}</div>
+          <div className="flex justify-center items-center cursor-pointer">
+            <Link href={"/" + this.props.id}>
+              <Avatar aria-label="recipe">R</Avatar>
+            </Link>
+            <Link href={"/" + this.props.id + "/" + this.props.post.post_id}>
+              <MoreVertIcon />
+            </Link>
+          </div>
+        </div>
+        <div className="px-6 py-4">
+          <div className="font-bold text-gray-800 text-xl mb-2">
+            {this.props.post.title}
+          </div>
+        </div>
+        <div className="px-6 text-gray-500">
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industry's standard dummy text ever
+          since the 1500s, when an unknown printer took a galley of type and
+          scrambled it to make a type specimen book. It has survived not only
+          five centuries,{this.props.post.details}
+        </div>
+        <div className="px-6 py-4"></div>
+        <span className="inline-block rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+          <IconButton aria-label="add to favorites" onClick={this.onClick}>
+            <FavoriteIcon />
+            <div className="text-lg">{this.state.likes}</div>
+          </IconButton>
+        </span>
+      </div>
     );
   }
 }

@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+
+.bg-gradient-blue {
+  background-image: linear-gradient(to right, #6969f3, #8080ec, #63b3ed);
+}
+
+.bg-feed {
+  background-color: rgba(250, 250, 255, 0.7);
+}
+
+@tailwind utilities;
+
+.focused:hover {
+  background-color: rgb(18, 243, 168);
+  color: white !important;
+}
