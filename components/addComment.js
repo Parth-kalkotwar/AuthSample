@@ -41,7 +41,6 @@ class AddComment extends Component {
   render() {
     return (
       <>
-        Add A Comment
         <form onSubmit={this.onSubmit}>
           <input
             type="text"

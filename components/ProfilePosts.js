@@ -42,8 +42,28 @@ class ProfilePosts extends Component {
   }
   onClick = () => {
     if (this.state.liked) {
-      return;
+      const resp = fetch(
+        "http://localhost:5000/api/" +
+          this.props.post.post_id +
+          "/" +
+          this.props.id +
+          "/likes",
+        {
+          method: "DELETE",
+        }
+      );
+      this.setState({ likes: this.state.likes - 1, liked: false });
     } else {
+      const resp = fetch(
+        "http://localhost:5000/api/" +
+          this.props.post.post_id +
+          "/" +
+          this.props.id +
+          "/likes",
+        {
+          method: "POST",
+        }
+      );
       this.setState({ likes: this.state.likes + 1, liked: true });
     }
   };
@@ -93,15 +113,14 @@ class ProfilePosts extends Component {
         </div>
         <div className="px-6 py-4"></div>
         <span className="inline-block rounded-full px-3 py-1 text-sm font-semibold text-white mr-2">
-          <IconButton aria-label="add to favorites" onClick={this.onClick}>
-            <FavoriteIcon />
-            <div className="font-bold text-white text-xl mb-2">
+          <div className="flex justify-center">
+            <button className="focus:outline-none" onClick={this.onClick}>
+              <FavoriteIcon />
+            </button>
+            <div className="font-bold text-white text-xl p-1 m-1">
               {this.state.likes}
             </div>
-            <div className="mx-4">
-              <img src="https://img.icons8.com/metro/26/000000/topic.png" />
-            </div>
-          </IconButton>
+          </div>
         </span>
       </div>
     );

@@ -35,17 +35,17 @@ class CreateForm extends Component {
   render() {
     return (
       <>
-        <div class="w-full ">
-          <form class="shadow-md rounded-lg px-8 pt-6 pb-8 mb-4 mx-4 bg-green-600">
-            <div class="mb-4">
+        <div className="w-full ">
+          <form className="shadow-md rounded-lg px-8 pt-6 pb-8 mb-4 mx-4 bg-green-600">
+            <div className="mb-4">
               <label
-                class="block text-gray-700 text-sm font-bold mb-2"
-                for="title"
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="title"
               >
                 Title
               </label>
               <input
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 type="text"
                 placeholder="Title..."
                 value={this.state.title}
@@ -53,15 +53,15 @@ class CreateForm extends Component {
                 onChange={this.onChange}
               />
             </div>
-            <div class="mb-6">
+            <div className="mb-6">
               <label
-                class="block text-gray-700 text-sm font-bold mb-2"
-                for="details"
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="details"
               >
                 Details
               </label>
               <input
-                class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                 type="text"
                 placeholder="Details..."
                 value={this.state.details}
@@ -69,9 +69,9 @@ class CreateForm extends Component {
                 name="details"
               />
             </div>
-            <div class="flex items-center justify-between">
+            <div className="flex items-center justify-between">
               <button
-                class="bg-gray-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                className="bg-gray-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 type="button"
                 onClick={this.onSubmit}
               >

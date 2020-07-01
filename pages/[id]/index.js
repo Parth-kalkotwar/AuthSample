@@ -25,7 +25,7 @@ export default function Person({ user, posts, id }) {
             <div className="flex flex-col justify-center items-center">
               <img src="https://img.icons8.com/windows/32/000000/home.png" />{" "}
               <button
-                class="text-gray-500 hover:bg-green-400 hover:text-white font-bold md:py-2 md:px-4 rounded focus:outline-none focus:shadow-outline"
+                className="text-gray-500 hover:bg-green-400 hover:text-white font-bold md:py-2 md:px-4 rounded focus:outline-none focus:shadow-outline"
                 type="button"
               >
                 Homepage
@@ -40,7 +40,7 @@ export default function Person({ user, posts, id }) {
             src="https://img.icons8.com/ios/50/000000/logout-rounded-down.png"
           />
           <button
-            class="text-gray-500 hover:bg-green-400 hover:text-white font-bold md:py-2 md:px-4 rounded focus:outline-none focus:shadow-outline"
+            className="text-gray-500 hover:bg-green-400 hover:text-white font-bold md:py-2 md:px-4 rounded focus:outline-none focus:shadow-outline"
             type="button"
             onClick={logout}
           >
@@ -55,7 +55,7 @@ export default function Person({ user, posts, id }) {
         Your Posts:
       </div>
       <br />
-      <div className="grid grid-cols-2 gap-4 m-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 m-12 ">
         {posts.map((item) => {
           return <ProfilePosts post={item} id={id} c={posts.indexOf(item)} />;
         })}

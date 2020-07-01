@@ -58,7 +58,17 @@ class post extends Component {
   }
   onClick = () => {
     if (this.state.liked) {
-      return;
+      const resp = fetch(
+        "http://localhost:5000/api/" +
+          this.props.post.post_id +
+          "/" +
+          this.props.id +
+          "/likes",
+        {
+          method: "DELETE",
+        }
+      );
+      this.setState({ likes: this.state.likes - 1, liked: false });
     } else {
       const resp = fetch(
         "http://localhost:5000/api/" +
@@ -75,43 +85,6 @@ class post extends Component {
   };
 
   render() {
-    //const { classes } = this.props;
-    /*return (
-      <>
-        <Card>
-          <CardHeader
-            avatar={<Avatar aria-label="recipe">R</Avatar>}
-            action={
-              <IconButton aria-label="settings">
-                <Link
-                  href={"/" + this.props.id + "/" + this.props.post.post_id}
-                >
-                  <MoreVertIcon />
-                </Link>
-              </IconButton>
-            }
-            title={this.props.post.title}
-            subheader={this.props.post.updated_at}
-          />
-          <CardContent>
-            <Typography variant="body2" color="textSecondary" component="p">
-              {this.props.post.details}
-            </Typography>
-          </CardContent>
-          <CardActions disableSpacing>
-            <IconButton aria-label="add to favorites" onClick={this.onClick}>
-              <FavoriteIcon />
-              <Typography>{this.state.likes}</Typography>
-            </IconButton>
-            <IconButton aria-label="share">
-              <ShareIcon />
-            </IconButton>
-          </CardActions>
-        </Card>
-        <Divider />
-        <br />
-      </>
-    );*/
     return (
       <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white transition duration-500 ease-out focused ">
         <div className="flex justify-between items-center py-2 px-1">
@@ -138,12 +111,12 @@ class post extends Component {
           five centuries,{this.props.post.details}
         </div>
         <div className="px-6 py-4"></div>
-        <span className="inline-block rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
-          <IconButton aria-label="add to favorites" onClick={this.onClick}>
+        <div className="flex justify-start items-center rounded-full m-4 px-3 py-4 text-sm font-semibold text-gray-700">
+          <button aria-label="add to favorites" onClick={this.onClick}>
             <FavoriteIcon />
-            <div className="text-lg">{this.state.likes}</div>
-          </IconButton>
-        </span>
+          </button>
+          <div className="text-lg px-2">{this.state.likes}</div>
+        </div>
       </div>
     );
   }

@@ -188,7 +188,7 @@ app.delete("/api/:post_id/comment/:comment_id", async (req, res) => {
 });
 
 // LIKES
-
+/*
 app.put("/api/:post_id/like/:user_id", async (req, res) => {
   try {
     //console.log(req.body);
@@ -204,7 +204,7 @@ app.put("/api/:post_id/like/:user_id", async (req, res) => {
   } catch (error) {
     console.error(error.message);
   }
-});
+});*/
 
 app.get("/api/:post_id/likes", async (req, res) => {
   try {
@@ -229,6 +229,20 @@ app.post("/api/:post_id/:user_id/likes", async (req, res) => {
     res.json(likes.rows);
   } catch (error) {
     console.error(error.message);
+  }
+});
+
+app.delete("/api/:post_id/:user_id/likes", async (req, res) => {
+  try {
+    const { post_id, user_id } = req.params;
+    //console.log(id);
+    const unlike = await pool.query(
+      `delete from likes where post_id=$1 AND user_id=$2;`,
+      [post_id, user_id]
+    );
+    res.json({ success: true });
+  } catch (err) {
+    console.error(err.message);
   }
 });
 

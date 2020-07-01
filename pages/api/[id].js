@@ -23,7 +23,11 @@ export default async function AllUsers(
         console.log("Err", err);
       }
       //console.log("result", results.rows);
-      res.json(results.rows);
+      if (results !== undefined) {
+        res.json(results.rows);
+      } else {
+        res.json(results);
+      }
     }
   );
 }

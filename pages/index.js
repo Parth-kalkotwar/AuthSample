@@ -39,9 +39,9 @@ export default function homepage({ authenticated, posts }) {
                   Not Authenticated
                 </h1>
                 <br />
-                <div className="flex justify-center items-center text-white flex-col sm:text-4xl md:text-2xl">
+                <div className="flex justify-center items-center text-white flex-col sm:text-4xl md:text-2xl ">
                   <Link href="/googlelogin">
-                    <div className="mt-4 flex justify-center items-center p-2 rounded-md w-3/4 bg-gradient-blue">
+                    <div className="mt-4 flex justify-center items-center p-2 cursor-pointer rounded-md w-3/4 bg-gradient-blue">
                       <img
                         src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Gmail_Icon.svg"
                         width="20px"
@@ -51,7 +51,7 @@ export default function homepage({ authenticated, posts }) {
                     </div>
                   </Link>
                   <Link href="/fblogin">
-                    <div className="mt-4 flex justify-center items-center p-2  rounded-md  w-3/4 bg-gradient-blue">
+                    <div className="mt-4 flex justify-center items-center p-2 cursor-pointer rounded-md  w-3/4 bg-gradient-blue">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -64,12 +64,12 @@ export default function homepage({ authenticated, posts }) {
                     </div>
                   </Link>
                   <Link href="/login">
-                    <div className="mt-4 flex justify-center items-center p-2  rounded-md  w-3/4 bg-gradient-blue">
+                    <div className="mt-4 flex justify-center items-center p-2 cursor-pointer rounded-md  w-3/4 bg-gradient-blue">
                       <a>Login</a>
                     </div>
                   </Link>
                   <Link href="/signup">
-                    <div className="mt-4 flex justify-center items-center p-2  rounded-md  w-3/4 bg-gradient-blue">
+                    <div className="mt-4 flex justify-center items-center p-2 cursor-pointer rounded-md  w-3/4 bg-gradient-blue">
                       <a>Create Account</a>
                     </div>
                   </Link>

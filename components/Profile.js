@@ -40,7 +40,7 @@ class Profile extends Component {
   render() {
     return (
       <>
-        <div className="text-xs md:text-2xl rounded overflow-hidden shadow-lg bg-white transition duration-500 ease-out flex justify-center items-center m-4 h-">
+        <div className="text-xs md:text-2xl rounded overflow-hidden shadow-lg bg-white transition duration-500 ease-out flex justify-center items-center m-4">
           <div className="flex w-3/4 justify-start items-center">
             <button className="block h-16 w-16 rounded-full my-4 mx-4 overflow-hidden border-2 border-gray-600 focus:outline-none focus:border-white">
               <img
@@ -57,9 +57,9 @@ class Profile extends Component {
             </div>
           </div>
           <div className="w-1/4 flex flex-col">
-            <div class="mb-4">
+            <div className="mb-4">
               <input
-                class="shadow appearance-none border rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow appearance-none border rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 type="text"
                 placeholder="Name..."
                 value={this.state.name}
@@ -69,7 +69,7 @@ class Profile extends Component {
             </div>
             <button
               onClick={this.onUpdate}
-              class="bg-green-500 hover:bg-white text-white hover:text-green-400 font-bold md:py-2 md:px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-green-500 hover:bg-white text-white hover:text-green-400 font-bold md:py-2 md:px-4 rounded focus:outline-none focus:shadow-outline"
               type="button"
             >
               Change Name
