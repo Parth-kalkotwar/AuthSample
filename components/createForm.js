@@ -11,7 +11,6 @@ class CreateForm extends Component {
       [e.target.name]: [e.target.value],
     });
   };
-
   onSubmit = async (e) => {
     e.preventDefault();
     const data = {
@@ -26,11 +25,8 @@ class CreateForm extends Component {
         body: JSON.stringify(data),
       }
     );
-
-    //console.log(resp.json());
-    const { pathname } = Router;
-    const url = "/" + this.state.id;
-    Router.push(url);
+    this.setState({ title: "", details: "" });
+    this.props.onAppend();
   };
   render() {
     return (

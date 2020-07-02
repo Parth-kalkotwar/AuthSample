@@ -10,8 +10,17 @@ class comments extends Component {
       details: "",
       user_id: this.props.id,
       post_id: this.props.post_id,
+      comments: [],
       showModal: false,
     };
+  }
+  async componentDidMount() {
+    const response = await fetch(
+      "http://localhost:5000/api/" + this.state.post_id + "/comment"
+    );
+    const comments = await response.json();
+    console.log("comments", comments);
+    this.setState({ comments: comments });
   }
   onChange = (e) => {
     this.setState({
@@ -33,11 +42,8 @@ class comments extends Component {
         body: JSON.stringify(data),
       }
     );
-
-    //console.log(resp.json());
-    const url = "/" + this.state.user_id + "/" + this.state.post_id;
-    Router.push(url);
-    //console.log(resp.json());
+    const comments = await resp.json();
+    this.setState({ comments: comments, details: "" });
   };
   onDelete = async (item) => {
     // /api/:post_id/comment/:comment_id
@@ -50,9 +56,8 @@ class comments extends Component {
         method: "DELETE",
       }
     );
-    //console.log(resp.json());
-    const url = "/" + this.props.id + "/" + item.post_id;
-    Router.push(url);
+    const comments = await resp.json();
+    this.setState({ comments: comments });
   };
   render() {
     return (
@@ -78,7 +83,7 @@ class comments extends Component {
                     <div className="text-bold text-3xl">Comments</div>
                   </div>
                   <div className="w-full text-xs mx-auto flex justify-start flex-col items-start my-4">
-                    {this.props.comments.map((item) => {
+                    {this.state.comments.map((item) => {
                       return (
                         <div className="flex justify-between w-full items-center">
                           <div className="flex justify-start items-center">

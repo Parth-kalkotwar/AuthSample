@@ -88,7 +88,9 @@ class post extends Component {
     return (
       <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white transition duration-500 ease-out focused ">
         <div className="flex justify-between items-center py-2 px-1">
-          <div className="text-gray-500">{this.props.post.updated_at}</div>
+          <div className="text-gray-500">
+            {this.props.post.updated_at.split("T")[0]}
+          </div>
           <div className="flex justify-center items-center cursor-pointer">
             <Link href={"/" + this.props.id}>
               <Avatar aria-label="recipe">R</Avatar>

@@ -164,8 +164,19 @@ app.post("/api/:post_id/comment", async (req, res) => {
       `INSERT INTO comments (post_id, user_id,comment_details) VALUES ($1, $2,$3) RETURNING *`,
       [post_id, user_id, details]
     );
-
-    res.json(post.rows[0]);
+    const comments = await pool.query(
+      `SELECT
+      users.id,
+      users.name,
+      comments.comment_id,
+      comments.comment_details,
+      comments.post_id
+    FROM
+      comments
+    LEFT JOIN users ON comments.user_id = users.id where comments.post_id = $1;`,
+      [post_id]
+    );
+    res.json(comments.rows);
   } catch (error) {
     console.error(error.message);
   }
@@ -174,14 +185,25 @@ app.post("/api/:post_id/comment", async (req, res) => {
 app.delete("/api/:post_id/comment/:comment_id", async (req, res) => {
   try {
     //console.log(req.body);
-    const { comment_id } = req.params;
+    const { comment_id, post_id } = req.params;
     //console.log(title, details);
     const deletecomment = await pool.query(
       `DELETE FROM comments WHERE comment_id = $1`,
       [comment_id]
     );
-
-    res.json({ success: true });
+    const comments = await pool.query(
+      `SELECT
+      users.id,
+      users.name,
+      comments.comment_id,
+      comments.comment_details,
+      comments.post_id
+    FROM
+      comments
+    LEFT JOIN users ON comments.user_id = users.id where comments.post_id = $1;`,
+      [post_id]
+    );
+    res.json(comments.rows);
   } catch (error) {
     console.error(error.message);
   }

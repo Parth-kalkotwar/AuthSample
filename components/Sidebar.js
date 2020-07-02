@@ -22,12 +22,12 @@ const SideBar = (props) => {
         </Link>
         <div className="text-1xl text-black">Parth</div>
       </div>
-      <div className="text-2xl text-black flex justify-center items-center">
-        Your Posts
+      <div className="text-lg md:text-2xl text-black flex items-center justify-center">
+        <div>Your Posts</div>
       </div>
       <br />
       <div className="mt-2 m-auto py-2 w-5/6  bg-white rounded-lg shadow-xl">
-        <div className="flex items-center justify-center flex-col">
+        <div className="flex items-start justify-center flex-col">
           {props.posts.map((item) => {
             if (item.so_id === props.id) {
               return (

@@ -4,7 +4,11 @@ import React, { Component } from "react";
 class UpdateForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { title: "", details: "", showModal: false };
+    this.state = {
+      title: this.props.post.title,
+      details: this.props.post.details,
+      showModal: false,
+    };
   }
   onChange = (e) => {
     this.setState({
@@ -26,11 +30,8 @@ class UpdateForm extends Component {
         body: JSON.stringify(data),
       }
     );
-
-    //console.log(resp.json());
-    const { pathname } = Router;
-    const url = "/" + this.props.post.so_id + "/" + this.props.post.post_id;
-    Router.push(url);
+    await this.props.onUpda();
+    this.setState({ showModal: false });
   };
   render() {
     return (
