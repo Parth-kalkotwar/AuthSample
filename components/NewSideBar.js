@@ -115,7 +115,7 @@ const NewSideBar = () => {
         </svg>
       </div>
       <br />
-      <div className="mt-2 m-auto py-2 w-5/6  bg-white rounded-lg shadow-xl">
+      <div className="mt-2 m-auto py-2 w-5/6  bg-white rounded-lg shadow-xl flex items-center justify-between">
         <div className="flex items-start justify-center flex-col">
           <div className="text-xs mx-3 my-1">
             <div className="text-black font-bold py-1 ">
@@ -124,14 +124,32 @@ const NewSideBar = () => {
             <div className="text-gray-600 py-1">Translation</div>
           </div>
         </div>
+        <span
+          className="border-4 hover:border-white hover:bg-green-600 border-red-600 mx-5"
+          style={{
+            height: "15px",
+            width: "15px",
+            backgroundColor: "#fff",
+            borderRadius: "50%",
+          }}
+        ></span>
       </div>
-      <div className="mt-2 m-auto py-2 w-5/6 mb-4 bg-white rounded-lg shadow-xl">
+      <div className="mt-2 m-auto py-2 w-5/6  bg-white rounded-lg shadow-xl flex items-center justify-between">
         <div className="flex items-start justify-center flex-col">
           <div className="text-xs mx-3 my-1">
             <div className="text-black font-bold py-1 ">Content Writing</div>
             <div className="text-gray-600 py-1">CopyWriting</div>
           </div>
         </div>
+        <span
+          className="border-4 hover:border-white hover:bg-green-600 border-red-600 mx-5"
+          style={{
+            height: "15px",
+            width: "15px",
+            backgroundColor: "#fff",
+            borderRadius: "50%",
+          }}
+        ></span>
       </div>
       <div className="text-md mt-4 md:text-2xl mx-4 text-black flex items-center justify-between">
         <div className="text-md ml-4">Your Projects</div>

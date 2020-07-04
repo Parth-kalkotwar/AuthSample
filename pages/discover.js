@@ -11,7 +11,7 @@ class discover extends Component {
   render() {
     return (
       <div className="flex h-screen">
-        <div className="bg-white flex flex-col w-1/18">
+        <div className="bg-white flex flex-col w-1/18 ">
           <div className="bg-green-400 rounded-lg my-2 h-1/8 w-1/2 mx-auto">
             <button></button>
           </div>
@@ -213,7 +213,7 @@ class discover extends Component {
             </div>
           </div>
         </div>
-        <div className="w-12/18 bg-gray-100">
+        <div className="w-12/18 h-full bg-gray-100">
           <div className="h-full">
             <div className="font-bold  text-4xl ml-6 mt-6">Discover Jobs</div>
             <div className="  text-2xl ml-6 mt-6 mr-6 flex justify-between">
@@ -416,7 +416,7 @@ class discover extends Component {
             </div>
           </div>
         </div>
-        <div className="w-5/18 bg-gray-400 h-full">
+        <div className="w-5/18 bg-gray-400 h-full fixed top-0 right-0">
           <NewSideBar />
         </div>
       </div>

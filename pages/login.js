@@ -46,7 +46,7 @@ export default class login extends Component {
     this.setState({
       [e.target.name]: [e.target.value],
     });
-    console.log(this.state.password);
+    //console.log(this.state.password);
   };
 
   render() {

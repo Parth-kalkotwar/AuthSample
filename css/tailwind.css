@@ -15,3 +15,7 @@
   background-color: rgb(18, 243, 168);
   color: white !important;
 }
+
+.post:hover {
+  color: White !important;
+}

@@ -9,7 +9,7 @@ class NewPost extends Component {
 
   render() {
     return (
-      <div className="max-w-sm rounded-lg hover:shadow-2xl overflow-hidden shadow-lg bg-white transition duration-500 ease-out focused ">
+      <div className="max-w-sm rounded-lg hover:shadow-2xl post overflow-hidden shadow-lg bg-white transition duration-500 ease-out focused ">
         <div className="flex justify-between items-center py-2 px-1">
           <div className="flex justify-center items-center">
             <span
@@ -61,11 +61,11 @@ class NewPost extends Component {
         <div className="font-bold text-black hover:text-white text-xl ml-2 mb-2">
           Translation of Legal Documents
         </div>
-        <div className="font-semibold text-gray-500 hover:text-white text-md ml-2 mb-2">
-          Translation of Legal Documents
+        <div className="font-semibold text-gray-500 hover:text-white text-md ml-2 mb-4">
+          Translation
         </div>
 
-        <div className="mx-2 mb-2 text-gray-500 text-xs hover:text-white">
+        <div className="mx-2 mb-4 text-gray-500 text-xs hover:text-white">
           Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the industry's standard dummy text ever
           since the 1500s, when an unknown printer took a galley of type and
