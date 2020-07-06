@@ -90,3 +90,20 @@ CREATE TABLE likes (
 );
 
 
+--MESSAGES 1-1
+CREATE TABLE chatrooms (
+  room_id BIGSERIAL NOT NULL PRIMARY KEY,
+  room_name VARCHAR(500) UNIQUE
+);
+
+CREATE TABLE chats (
+  message_id BIGSERIAL NOT NULL PRIMARY KEY,
+  room_name VARCHAR REFERENCES chatrooms(room_name) ON DELETE CASCADE,
+  message VARCHAR(500),
+  user_from BIGINT REFERENCES users(id) ON DELETE CASCADE,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+
+INSERT INTO chats (room_name,message,user_from) VALUES ('9_17','hi','17');
+select chats.message, users.name from chats  left join users on chats.user_from = users.id where room_name='9_17' ORDER BY chats.created_at DESC;

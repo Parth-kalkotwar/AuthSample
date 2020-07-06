@@ -1,68 +1,64 @@
 import React, { useState, useEffect } from "react";
 import queryString from "query-string";
 import io from "socket.io-client";
-
-import TextContainer from "../components/TextContainer/TextContainer";
-import Messages from "../components/Messages/Messages";
-import Input from "../components/Input/Input";
-
 let socket;
 
-export default function Chat({ username, chatroom }) {
-  const [name, setName] = useState("");
-  const [room, setRoom] = useState("");
-  const [users, setUsers] = useState("");
-  const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState([]);
-  const ENDPOINT = "http://localhost:5000";
-  console.log("name", username, room);
-  useEffect(() => {
-    socket = io(ENDPOINT);
-    console.log(username, chatroom);
-    setRoom(chatroom);
-    setName(username);
+export default function chatBox({ name, room }) {
+  const [messages, setmessages] = useState([]);
+  const [message, setmessage] = useState("");
+  const ENDPOINT = "localhost:5000";
 
-    socket.emit("join", { name, room }, (error) => {
-      if (error) {
-        alert(error);
-      }
-    });
-  }, [ENDPOINT, location.search]);
+  useEffect(() => {
+    console.log("1st", name);
+    socket = io(ENDPOINT);
+    socket.emit("join", { name, room }, () => {});
+
+    return () => {
+      socket.emit("disconnect");
+      socket.off();
+    };
+  }, [name, room]);
 
   useEffect(() => {
     socket.on("message", (message) => {
-      setMessages((messages) => [...messages, message]);
+      setmessages([...messages, message]);
     });
-
-    socket.on("roomData", ({ users }) => {
-      setUsers(users);
-    });
-  }, []);
+  }, [messages]);
 
   const sendMessage = (event) => {
     event.preventDefault();
-
     if (message) {
-      socket.emit("sendMessage", message, () => setMessage(""));
+      socket.emit("sendMessage", message, () => setmessage(""));
     }
   };
+  //console.log(message, messages);
 
   return (
-    <div>
-      <div>
-        <Messages messages={messages} name={name} />
-        <Input
-          message={message}
-          setMessage={setMessage}
-          sendMessage={sendMessage}
-        />
-      </div>
-      <TextContainer users={users} />
-    </div>
+    <>
+      <h1>
+        Chat, {name} {room}
+      </h1>
+      <br />
+      {messages.map((item) => {
+        return (
+          <h1>
+            {item.user}: {item.text}
+          </h1>
+        );
+      })}
+      <input
+        value={message}
+        className="border border-green-500"
+        onChange={(event) => setmessage(event.target.value)}
+        onKeyPress={(event) =>
+          event.key === "Enter" ? sendMessage(event) : null
+        }
+      />
+    </>
   );
 }
 
-Chat.getInitialProps = async (ctx) => {
-  console.log("query", ctx.query);
-  return { username: ctx.query.name, chatroom: ctx.query.room };
+chatBox.getInitialProps = async (ctx) => {
+  console.log(ctx.query);
+  return { name: ctx.query.name, room: ctx.query.room };
 };

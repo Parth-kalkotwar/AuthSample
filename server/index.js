@@ -268,6 +268,99 @@ app.delete("/api/:post_id/:user_id/likes", async (req, res) => {
   }
 });
 
-app.listen(5000, () => {
-  console.log("server has started on port 5000");
+app.get("/api/chats/:user_id/:user2_id", async (req, res) => {
+  try {
+    const { user_id, user2_id } = req.params;
+    const room_name = user_id.toString() + "_" + user2_id.toString();
+    //console.log(room_name);
+    const chats = await pool.query(
+      `select chats.message, users.name from chats left join users on chats.user_from = users.id where room_name=$1`,
+      [room_name]
+    );
+    //console.log("Ret", chats.rows);
+    res.json(chats.rows);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+app.post("/api/chats/:user_id/:user2_id", async (req, res) => {
+  try {
+    const { user_id, user2_id } = req.params;
+    let room_name;
+    if (user_id > user2_id) {
+      room_name = user_id.toString() + "_" + user2_id.toString();
+    } else {
+      room_name = user2_id.toString() + "_" + user_id.toString();
+    }
+    let resp = await pool.query(`SELECT * FROM chatrooms WHERE room_name=$1`, [
+      room_name,
+    ]);
+
+    const room = resp.rows;
+    if (room.length == 0) {
+      const create = await pool.query(
+        `INSERT INTO chatrooms (room_name) VALUES ($1)`,
+        [room_name]
+      );
+    }
+    const chats = await pool.query(
+      `INSERT INTO chats (room_name,message,user_from) VALUES ($1,$2,$3) RETURNING *`,
+      [room_name, req.body.message, req.body.user_from]
+    );
+    res.json(chats);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post("/api/groupchat", async (req, res) => {
+  try {
+    const { room_name } = req.body;
+    const room = await pool.query(
+      `INSERT INTO chatrooms(room_name) VALUES($1) RETURNING *`,
+      [room_name]
+    );
+    res.json(room.rows);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.get("/api/groupchat/:room_id", async (req, res) => {
+  try {
+    const { room_id } = req.params;
+    const dump = await pool.query(`SELECT * from chatrooms where room_id=$1`, [
+      room_id,
+    ]);
+    const room_name = dump.rows[0].room_name;
+    const room = await pool.query(
+      `select chats.message, users.name from chats left join users on chats.user_from = users.id where room_name=$1`,
+      [room_name]
+    );
+    res.json(room.rows);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post("/api/groupchats/chats/:room_id", async (req, res) => {
+  try {
+    const { room_id } = req.params;
+    const dump = await pool.query(`SELECT * from chatrooms where room_id=$1`, [
+      room_id,
+    ]);
+    const room_name = dump.rows[0].room_name;
+    const chats = await pool.query(
+      `INSERT INTO chats (room_name,message,user_from) VALUES ($1,$2,$3) RETURNING *`,
+      [room_name, req.body.message, req.body.user_from]
+    );
+    res.json(chats);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.listen(7000, () => {
+  console.log("server has started on port 7000");
 });
